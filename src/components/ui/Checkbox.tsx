@@ -1,48 +1,43 @@
 import { Check } from "lucide-react";
-import { ReactNode } from "react";
+import { ReactNode, forwardRef } from "react";
 
 type Props = {
   id: string;
-  defaultChecked?: boolean;
+  checked?: boolean;
   textHtmlFormat?: ReactNode;
-  onChange: () => void;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  name?: string;
 };
 
-export function Checkbox({
-  id,
-  defaultChecked,
-  textHtmlFormat,
-  onChange,
-}: Props) {
-  return (
-    <label className="cursor-pointer inline-flex">
-      <input
-        type="checkbox"
-        name={id}
-        id={id}
-        checked={defaultChecked}
-        readOnly
-        hidden
-      />
+export const Checkbox = forwardRef<HTMLInputElement, Props>(
+  ({ id, checked, textHtmlFormat, onChange, name }, ref) => {
+    return (
+      <label className="cursor-pointer inline-flex">
+        <input
+          ref={ref}
+          type="checkbox"
+          id={id}
+          name={name}
+          checked={checked}
+          onChange={onChange}
+          hidden
+        />
 
-      <div className="flex gap-3 items-center">
-        <div
-          onClick={() => onChange()}
-          className={`w-6 h-6 flex items-center justify-center rounded-sm border border-(--neutral-light-grey)
-        ${defaultChecked ? "bg-(--primary)" : "bg-(--neutral-white)"}`}
-        >
-          {defaultChecked && (
-            <Check width={24} height={16} className="text-white" />
-          )}
-        </div>
+        <div className="flex gap-3 items-center">
+          <div
+            className={`w-6 h-6 flex items-center justify-center rounded-sm border border-(--neutral-light-grey)
+            ${checked ? "bg-(--primary)" : "bg-(--neutral-white)"}`}
+          >
+            {checked && <Check width={24} height={16} className="text-white" />}
+          </div>
 
-        <div
-          className="text-(--neutral-light-grey) select-none"
-          onClick={() => onChange()}
-        >
-          {textHtmlFormat}
+          <div className="text-(--neutral-light-grey) select-none">
+            {textHtmlFormat}
+          </div>
         </div>
-      </div>
-    </label>
-  );
-}
+      </label>
+    );
+  },
+);
+
+Checkbox.displayName = "Checkbox";
