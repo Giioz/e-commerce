@@ -16,6 +16,7 @@ export const postUserSchema = z.object({
       /[^A-Za-z0-9]/,
       "პაროლი უნდა შეიცავდეს ერთ განსაკუთრებულ სიმბოლოს მაინც.",
     ),
+  agree: z.coerce.boolean().default(false),
 });
 
-export type PostUserSchema = z.infer<typeof postUserSchema>;
+export type PostUserSchema = z.input<typeof postUserSchema>;
