@@ -43,6 +43,7 @@ export function RegisterForm() {
   const onSubmit = async (data: PostUserSchema) => {
     if (!agree) {
       toast.error("გთხოვთ დაეთანხმოთ.");
+      return;
     }
     try {
       const res = await registerAction(data);
@@ -61,7 +62,7 @@ export function RegisterForm() {
   };
 
   return (
-    <div className="flex flex-col gap-8 box-border max-w-114 w-full px-5 mx-auto mt-20 py-10 lg:mt-0 lg:py-0 lg:box-content lg:pl-22 lg:pr-20">
+    <div className="flex flex-col gap-8 box-border max-w-114 w-full px-5 mx-auto mt-20 py-10 lg:mt-0 lg:py-0 lg:box-content lg:pl-22 lg:pr-20 overflow-hidden">
       <FormHeader
         header="Sign Up"
         text="Already have an account?"
